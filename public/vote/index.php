@@ -1,7 +1,10 @@
 <?php
+
 require("./functions.php");
-$uid_check = new UidClass();
-$uid_check->redirect();
+if (!isset($_SESSION['voted-times'])) {
+    $uid_check = new UidClass();
+    $uid_check->redirect();
+}
 ?>
 <html>
 <head>
