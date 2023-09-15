@@ -6,19 +6,25 @@ class UidClass
     public function __construct()
     {
         if (isset($_GET['uid'])) {
-            $this->uid = $_GET['uid'];
+            $this->uid = htmlspecialchars($_GET['uid']);
         } else{
             $this->uid = null;
         }
+        session_start();
     }
 
     public function redirect(){
+    /*
         if ($this->isset_uid()){
             if ($this->uid_check()){
-                if($this->is_voted()) {
-                    header("Location:https://shibafufes68th.main.jp/vote/edit.php");
+                $voted_times = $this->get_voted_times();
+
+                if($voted_times == 0) {
+                    // 初回
+                    header("Location:https://shibafufes68th.main.jp/vote/vote.php");
                     exit();
                 }else{
+                    // 複数回目
                     header("Location:https://shibafufes68th.main.jp/vote/edit.php");
                     exit();
                 }
@@ -28,6 +34,31 @@ class UidClass
             }
         } else{
             header("Location:https://shibafufes68th.main.jp/vote/index.php");
+            exit();
+        }
+    */
+
+        if (!$this->isset_uid()){
+            header("Location:https://shibafufes68th.main.jp/vote/index.php");
+            exit();
+        }
+
+        if (!$this->uid_check()){
+            // 不正なuid
+            header("Location:https://shibafufes68th.main.jp/vote/error.php?code=invalid_uid");
+            exit();
+        }
+
+        $voted_times = $this->get_voted_times();
+        $_SESSION['voted-times'] = $voted_times;
+
+        if($voted_times == 0) {
+            // 初回
+            header("Location:https://shibafufes68th.main.jp/vote/vote.php");
+            exit();
+        }else{
+            // 複数回目
+            header("Location:https://shibafufes68th.main.jp/vote/edit.php");
             exit();
         }
     }
@@ -46,16 +77,13 @@ class UidClass
         }
     }
 
-    private function is_voted() {
-        if (/*投票済み*/) {
-            return true;
-        } else {
-            return false;
-        }
+    private function get_voted_times() {
+        $n = 0;//DBからget
+        return $n;
     }
 }
 
-class DBControl
+class DBControlClass
 {
     public $nnn;
 
