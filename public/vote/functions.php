@@ -3,9 +3,13 @@ class UidClass
 {
     public $uid;
 
-    public function __construct($uid)
+    public function __construct()
     {
-        $this->uid = $uid;
+        if (isset($_GET['uid'])) {
+            $this->uid = $_GET['uid'];
+        } else{
+            $this->uid = null;
+        }
     }
 
     public function redirect(){
@@ -13,7 +17,7 @@ class UidClass
             if ($this->uid_check()){
                 if($this->is_voted()) {
                     header("Location:https://shibafufes68th.main.jp/vote/edit.php");
-                exit();
+                    exit();
                 }else{
                     header("Location:https://shibafufes68th.main.jp/vote/edit.php");
                     exit();
@@ -27,7 +31,6 @@ class UidClass
             exit();
         }
     }
-
 
     private function isset_uid() {
         if ($this->uid) {
@@ -50,4 +53,27 @@ class UidClass
             return false;
         }
     }
+}
+
+class DBControl
+{
+    public $nnn;
+
+    public function __construct()
+    {
+        $this->connect();
+    }
+
+    public function connect(){
+        $dsn = "mysql:dbname=hoge;host=localhost;charset=utf8";
+        $user = "";
+        $password = "";
+        $options = array(
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
+        );
+    }
+
+    public function getRow(){}
 }
