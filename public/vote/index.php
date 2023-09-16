@@ -1,5 +1,4 @@
 <?php
-
 require("./functions.php");
 if (!isset($_SESSION['voted-times'])) {
     $uid_check = new UidClass();

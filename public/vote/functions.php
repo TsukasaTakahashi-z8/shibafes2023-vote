@@ -39,13 +39,13 @@ class UidClass
     */
 
         if (!$this->isset_uid()){
-            header("Location:https://shibafufes68th.main.jp/vote/index.php");
+            header("Location:/vote/index.php");
             exit();
         }
 
         if (!$this->uid_check()){
             // 不正なuid
-            header("Location:https://shibafufes68th.main.jp/vote/error.php?code=invalid_uid");
+            header("Location:/vote/error.php?code=invalid_uid");
             exit();
         }
 
@@ -54,11 +54,11 @@ class UidClass
 
         if($voted_times == 0) {
             // 初回
-            header("Location:https://shibafufes68th.main.jp/vote/vote.php");
+            header("Location:/vote/vote.php");
             exit();
         }else{
             // 複数回目
-            header("Location:https://shibafufes68th.main.jp/vote/edit.php");
+            header("Location:/vote/edit.php");
             exit();
         }
     }

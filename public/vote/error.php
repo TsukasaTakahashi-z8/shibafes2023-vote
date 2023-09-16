@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <title>投票エラー</title>
-    <meta http-equiv="refresh" content="5;URL=https://shibafufes68th.main.jp/vote/index.php">
+    <meta http-equiv="refresh" content="5;URL=/vote/index.php">
 </head>
 <body>
     <h1>投票エラー</h1>
