@@ -1,5 +1,31 @@
 <?php
 
+class DBControlClass
+{
+    public $nnn;
+
+    public function __construct()
+    {
+        $this->connect();
+    }
+
+    public function connect()
+    {
+        $dsn = "mysql:dbname=hoge;host=localhost;charset=utf8";
+        $user = "";
+        $password = "";
+        $options = array(
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
+        );
+    }
+
+    public function getRow()
+    {
+    }
+}
+
 class UidClass extends DBControlClass
 {
     public $uid = null;
@@ -65,28 +91,3 @@ class UidClass extends DBControlClass
     }
 }
 
-class DBControlClass
-{
-    public $nnn;
-
-    public function __construct()
-    {
-        $this->connect();
-    }
-
-    public function connect()
-    {
-        $dsn = "mysql:dbname=hoge;host=localhost;charset=utf8";
-        $user = "";
-        $password = "";
-        $options = array(
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
-        );
-    }
-
-    public function getRow()
-    {
-    }
-}
