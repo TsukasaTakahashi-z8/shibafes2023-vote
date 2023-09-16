@@ -1,83 +1,65 @@
 <?php
-class UidClass
-{
-    public $uid;
 
-    public function __construct()
+class UidClass extends DBControlClass
+{
+    public $uid = null;
+
+    public function __construct($uid)
     {
-        if (isset($_GET['uid'])) {
-            $this->uid = htmlspecialchars($_GET['uid']);
-        } else{
-            $this->uid = null;
+        if (isset($uid)) {
+            $this->uid = htmlspecialchars($uid);
         }
-        session_start();
+
+        if (session_status() == PHP_SESSION_DISABLED) {
+            session_start();
+        }
     }
 
-    public function redirect(){
-    /*
-        if ($this->isset_uid()){
-            if ($this->uid_check()){
-                $voted_times = $this->get_voted_times();
-
-                if($voted_times == 0) {
-                    // 初回
-                    header("Location:https://shibafufes68th.main.jp/vote/vote.php");
-                    exit();
-                }else{
-                    // 複数回目
-                    header("Location:https://shibafufes68th.main.jp/vote/edit.php");
-                    exit();
-                }
-            } else {
-                // 不正なuid
-                // header("Location:https://shibafufes68th.main.jp/vote/edit.php");
+    public function redirect()
+    {
+        // uidなし
+        if (empty($this->uid)) {
+            if ($_SERVER['REQUEST_URI'] != "/vote/index.php") {
+                header("Location:/vote/index.php");
+                exit();
             }
-        } else{
-            header("Location:https://shibafufes68th.main.jp/vote/index.php");
-            exit();
-        }
-    */
-
-        if (!$this->isset_uid()){
-            header("Location:/vote/index.php");
-            exit();
+            return 0;
         }
 
-        if (!$this->uid_check()){
-            // 不正なuid
-            header("Location:/vote/error.php?code=invalid_uid");
+        // 不正なuid
+        if (!$this->uid_check()) {
+            header("Location:/vote/error.php?code=invalid_uid&uid={$this->uid}");
             exit();
+            return 0;
         }
 
+        //sessionにset
         $voted_times = $this->get_voted_times();
         $_SESSION['voted-times'] = $voted_times;
+        $_SESSION['uid'] = $this->uid;
 
-        if($voted_times == 0) {
-            // 初回
-            header("Location:/vote/vote.php");
-            exit();
-        }else{
-            // 複数回目
+        // 複数回目
+        if ($voted_times != 0) {
             header("Location:/vote/edit.php");
             exit();
+            return 0;
         }
+
+        header("Location:/vote/vote.php");
+        exit();
+        return 0;
     }
 
-    private function isset_uid() {
-        if ($this->uid) {
+    private function uid_check(): bool
+    {
+        if (empty($this->uid)) {
             return false;
-        } else {
-            return true;
         }
+
     }
 
-    private function uid_check() {
-        if ($this->isset_uid()) {
-            // connecting DB & 存在チェック
-        }
-    }
-
-    private function get_voted_times() {
+    private function get_voted_times()
+    {
         $n = 0;//DBからget
         return $n;
     }
@@ -92,7 +74,8 @@ class DBControlClass
         $this->connect();
     }
 
-    public function connect(){
+    public function connect()
+    {
         $dsn = "mysql:dbname=hoge;host=localhost;charset=utf8";
         $user = "";
         $password = "";
@@ -103,5 +86,7 @@ class DBControlClass
         );
     }
 
-    public function getRow(){}
+    public function getRow()
+    {
+    }
 }

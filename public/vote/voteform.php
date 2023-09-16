@@ -1,6 +1,8 @@
 <?php
 require("./functions.php");
-$uid_check = new UidClass();
+$uid_check = new UidClass($_GET['uid']);
+$uid_check->redirect();
+
 ?>
 <html>
 <head>
