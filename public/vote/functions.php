@@ -33,7 +33,7 @@ class UidClass extends DBControlClass
     public function __construct($uid)
     {
         if (isset($uid)) {
-            $this->uid = htmlspecialchars($uid);
+            $this->uid = $uid;
         }
 
         if (session_status() == PHP_SESSION_DISABLED) {

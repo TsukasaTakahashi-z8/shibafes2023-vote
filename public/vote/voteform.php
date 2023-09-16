@@ -2,7 +2,6 @@
 require("./functions.php");
 $uid_check = new UidClass($_GET['uid']);
 $uid_check->redirect();
-
 ?>
 <html>
 <head>
@@ -10,7 +9,7 @@ $uid_check->redirect();
     <title>第68回2023芝生祭投票ページ</title>
 </head>
 <body>
-    <p>id:<?php echo($uid_check->uid); ?></p>
+    <p>id:<?php echo(htmlspecialchars($uid_check->uid)); ?></p>
     <form target="insert.php" method="POST">
         <h2>最も面白いと思った企画を選択してください。</h2>
         <select name="best-exhibition">
