@@ -12,9 +12,7 @@ $uid_check->redirect();
     <title>第68回2023芝生祭投票ページ</title>
 </head>
 <body>
-<?php var_dump($uid_check->get_id()) ?>
-<?php var_dump($_SESSION) ?>
-    <p>id:<?php echo(htmlspecialchars($uid_check->uid)); ?></p>
+    <p>uid:<?php echo(htmlspecialchars($uid_check->uid)); ?></p>
     <form action="vote.php" method="POST">
         <h2>最も面白いと思った企画を選択してください。</h2>
         <select name="best_exhibition">
