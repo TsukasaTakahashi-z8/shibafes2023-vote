@@ -3,6 +3,15 @@
 
 class DBControlClass
 {
+    /*
+        CREATE TABLE IF NOT EXISTS CHARACTER SET utf8 vote (
+            id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+            best-exhibition INT,
+            best-poster INT,
+            email TEXT,
+            impression MEDIUMTEXT
+        );
+     */
     private $dsn;
     private $db_user;
     private $db_password;
@@ -19,6 +28,11 @@ class DBControlClass
         $this->db_password = $_ENV['DB_PASSWORD'];
 
         $this->connect();
+    }
+
+    public function __destruct()
+    {
+        $this->dsn = null;
     }
 
     public function connect()
@@ -40,6 +54,8 @@ class DBControlClass
     }
 
     public function init_db(){
+        )";
+        $this->dbh->query($sql);
 
     }
 
