@@ -30,15 +30,16 @@
     - [ ] 共通
     - [ ] vote.php, edit.php
 
-- [ ] DBControllClassを書く
+- [x] DBControllClassを書く
     - [x] 環境変数設定
     - [x] DBのテーブルcreate
     - [x] connectDB()
     - [x] select
     - [x] update
 
-- [ ] vote.phpを書く
-    - [ ] CSVからの表示
+- [x] voteform.phpを書く
+    - [x] CSVからの表示
+    - [ ] CSVからの表示(画像)
 
 - [ ] edit.phpを書く
     - [ ] CSVからの表示
@@ -46,7 +47,7 @@
 
 - [ ] 送信先phpファイルを書く
     - [x] POST受信からのDBControllClass
-    - [ ] 感謝ページ
+    - [x] 感謝ページ
 
 - [ ] 返信用メアド作成
 

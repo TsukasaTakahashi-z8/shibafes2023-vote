@@ -5,6 +5,7 @@ use Hashids\Hashids;
 session_start();
 $uid_check = new UidClass($_GET['uid']);
 $uid_check->redirect();
+
 ?>
 <html>
 <head>
@@ -15,13 +16,29 @@ $uid_check->redirect();
     <p>uid:<?php echo(htmlspecialchars($uid_check->uid)); ?></p>
     <form action="vote.php" method="POST">
         <h2>最も面白いと思った企画を選択してください。</h2>
-        <select name="best_exhibition">
-            <option value="1">企画1</option>
+        <select name="best_exhibition" required>
+            <?php
+                $f = fopen("./config/exhibition.csv", 'r');
+                while ($line = fgetcsv($f)){
+                    if ($line[0]=="企画id"){
+                        echo "            <option selected disable hidden>{$line[3]}（{$line[2]}）</option>";
+                        continue;
+                    }
+                    echo "            <option value=\"{$line[0]}\">{$line[3]}（{$line[2]}）</option>";
+                }
+            ?>
         </select>
-        <select name="best_poster">
-            <option value="1">企画1</option>
-            <option value="2" style="display: none;">企画2(画像なし)</option>
-            <!--PHPでconfig/exhibition.csvからoptionを生成-->
+        <select name="best_poster" required>
+            <?php
+                $f = fopen("./config/exhibition.csv", 'r');
+                while ($line = fgetcsv($f)){
+                    if ($line[0]=="企画id"){
+                        echo "            <option selected disable hidden>{$line[3]}（{$line[2]}）</option>";
+                        continue;
+                    }
+                    echo "            <option value=\"{$line[0]}\">{$line[3]}（{$line[2]}）</option>";
+                }
+            ?>
         </select>
         <h2>ここからは、任意です。</h2>
         <p>頂いたご意見は、今後の芝生祭運営に役立たせていきます。<br>emailを記入していただいた場合は、数週間以内に実行委員会からお返事をさせていただきます。</p>
