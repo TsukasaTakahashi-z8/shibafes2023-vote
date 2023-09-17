@@ -4,10 +4,12 @@
 class DBControlClass
 {
     /*
-        CREATE TABLE IF NOT EXISTS CHARACTER SET utf8 vote (
+        CREATE DATABASE {dbname} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+        CREATE TABLE IF NOT EXISTS vote (
             id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-            best-exhibition INT,
-            best-poster INT,
+            voted_times INT DEFAULT 0,
+            best_exhibition INT,
+            best_poster INT,
             email TEXT,
             impression MEDIUMTEXT
         );
@@ -35,7 +37,7 @@ class DBControlClass
         $this->dsn = null;
     }
 
-    public function connect()
+    private function connect()
     {
         $options = array(
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
