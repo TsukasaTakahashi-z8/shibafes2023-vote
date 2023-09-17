@@ -1,4 +1,7 @@
 {
+    "config": {
+        "vendor-dir": "public/vendor"
+    },
     "autoload": {
         "classmap": [
             "public/vote/"
