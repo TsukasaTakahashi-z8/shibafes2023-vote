@@ -1,7 +1,13 @@
 <?php
 namespace vote;
 
+use Dotenv\Dotenv;
 use PDO;
+
+require $_SERVER['DOCUMENT_ROOT']."/vendor/autoload.php";
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+var_dump($_ENV);
 
 class DBControlClass
 {
