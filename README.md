@@ -10,7 +10,13 @@
 ## 説明
 
 - public/ 以下がWEBサーバー上に公開されます。
-- public/vote/.envにDB接続情報を記述してください。
+- public/vote/.envに以下のようにDB接続情報を記述してください。
+| key         | value    |
+| ---         | ---      |
+| DB_NAME     | DB名     |
+| DB_HOST     | host     |
+| DB_USER     | User名   |
+| DB_PASSWORD | password |
 
 ## ToDo
 - [ ] CSS書く
@@ -19,7 +25,7 @@
 
 - [ ] DBControllClassを書く
     - [x] 環境変数設定
-    - [ ] DBのテーブルcreate
+    - [x] DBのテーブルcreate
     - [x] connectDB()
     - [ ] select
     - [ ] update
