@@ -4,14 +4,6 @@ class DBControlClass
 {
     /*
         CREATE DATABASE {dbname} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-        CREATE TABLE IF NOT EXISTS vote (
-            id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-            voted_times INT DEFAULT 0,
-            best_exhibition INT,
-            best_poster INT,
-            email TEXT,
-            impression MEDIUMTEXT
-        );
      */
     private $dsn;
     private $db_user;
@@ -65,7 +57,7 @@ class DBControlClass
         return 0;
     }
 
-    public function init_table(int $num=15000)
+    public function init_table(int $num = 15000)
     {
         // create a table
         try {
@@ -84,12 +76,12 @@ class DBControlClass
         }
 
         $sql = "INSERT INTO vote(voted_times, best_exhibition, best_poster, email, impression) VALUES";
-        for ($i = 1; $i<$num; $i++) {
+        for ($i = 1; $i < $num; $i++) {
             $sql .= "\n(0,0,0,\"\",\"\"),";
         }
         $sql .= "\n(0,0,0,\"\",\"\");";
 
-        try{
+        try {
             $this->dbh->query($sql);
         } catch (PDOException $e) {
             return $e->getMessage();
@@ -97,15 +89,31 @@ class DBControlClass
         }
     }
 
-
-    public function getRow()
+    public function count_row()
     {
+        try {
+            $res = $this->dbh->query("SELECT * FROM vote;");
+            return $res->rowCount();
+        } catch (PDOException $e) {
+            return $e->getMessage();
+            die();
+        }
     }
 
-    public function update(int $id, int $voted_times, int $best_exhibition=-1, int $best_poster=-1, string $email="", string $impression="")
+    public function select(int $id)
+    {
+        $stmt = $this->dbh->query("SELECT * FROM vote WHERE id = ?");
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
+
+    public function update(int $id, int $voted_times, int $best_exhibition = -1, int $best_poster = -1, string $email = "", string $impression = "")
     {
     }
 }
+
+use Hashids\Hashids;
 
 class UidClass extends DBControlClass
 {
@@ -143,7 +151,7 @@ class UidClass extends DBControlClass
         //sessionにset
         $voted_times = $this->get_voted_times();
         $_SESSION['voted-times'] = $voted_times;
-        $_SESSION['uid'] = $this->uid;
+        $_SESSION['id'] = $this->get_id();
 
         // 複数回目
         if ($voted_times != 0) {
@@ -157,8 +165,12 @@ class UidClass extends DBControlClass
         return 0;
     }
 
-    public function get_id(string $uid)
+    public function get_id(): int
     {
+        $hashids = new Hashids($_ENV['SALT'], 8, "23456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ");
+        $id = $hashids->decode($this->uid);
+
+        return intval($id[0]);
     }
 
     private function uid_check(): bool
@@ -167,11 +179,15 @@ class UidClass extends DBControlClass
             return false;
         }
 
+        if (0 < $this->get_id() && $this->get_id() <= $this->count_row()) {
+            return true;
+        }
+        return false;
     }
 
     private function get_voted_times()
     {
-        $n = 0;//DBからget
-        return $n;
+        $result = $this->select($this->get_id());
+        return $result["voted_times"];
     }
 }

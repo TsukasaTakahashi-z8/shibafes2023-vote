@@ -11,6 +11,7 @@
         "phpunit/phpunit": "10"
     },
     "require": {
-        "vlucas/phpdotenv": "^5.5"
+        "vlucas/phpdotenv": "^5.5",
+        "hashids/hashids": "^5.0"
     }
 }
