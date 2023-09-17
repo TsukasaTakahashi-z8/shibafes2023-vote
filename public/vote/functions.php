@@ -1,6 +1,5 @@
 <?php
 
-
 class DBControlClass
 {
     /*
@@ -19,13 +18,24 @@ class DBControlClass
     private $db_password;
 
     private $dbh;
+    private const CREATE_SQL = "
+        CREATE TABLE IF NOT EXISTS vote (
+            id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+            voted_times INT DEFAULT 0,
+            best_exhibition INT,
+            best_poster INT,
+            email TEXT,
+            impression MEDIUMTEXT
+        );";
+
 
     public function __construct()
     {
         require '../vendor/autoload.php';
         \Dotenv\Dotenv::createImmutable(__DIR__)->load();
+        \Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
 
-        $this->dsn = "mysql:dbname=" . $_ENV['DB_NAME'] . ";host=" . $_ENV['DB_HOST'] . ";charset=utf8";
+        $this->dsn = "mysql:dbname=" . $_ENV['DB_NAME'] . ";host=" . $_ENV['DB_HOST'] . ";charset=utf8mb4";
         $this->db_user = $_ENV['DB_USER'];
         $this->db_password = $_ENV['DB_PASSWORD'];
 
@@ -55,7 +65,44 @@ class DBControlClass
         return 0;
     }
 
+    public function init_table(int $num=15000)
+    {
+        // create a table
+        try {
+            $this->dbh->query(self::CREATE_SQL);
+        } catch (PDOException $e) {
+            return $e->getMessage();
+            die();
+        }
+
+        // clean the table
+        try {
+            $this->dbh->query("TRUNCATE TABLE vote;");
+        } catch (PDOException $e) {
+            return $e->getMessage();
+            die();
+        }
+
+        $sql = "INSERT INTO vote(voted_times, best_exhibition, best_poster, email, impression) VALUES";
+        for ($i = 1; $i<$num; $i++) {
+            $sql .= "\n(0,0,0,\"\",\"\"),";
+        }
+        $sql .= "\n(0,0,0,\"\",\"\");";
+
+        try{
+            $this->dbh->query($sql);
+        } catch (PDOException $e) {
+            return $e->getMessage();
+            die();
+        }
+    }
+
+
     public function getRow()
+    {
+    }
+
+    public function update(int $id, int $voted_times, int $best_exhibition=-1, int $best_poster=-1, string $email="", string $impression="")
     {
     }
 }
@@ -110,6 +157,10 @@ class UidClass extends DBControlClass
         return 0;
     }
 
+    public function get_id(string $uid)
+    {
+    }
+
     private function uid_check(): bool
     {
         if (empty($this->uid)) {
@@ -124,4 +175,3 @@ class UidClass extends DBControlClass
         return $n;
     }
 }
-
