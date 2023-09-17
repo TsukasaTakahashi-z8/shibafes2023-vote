@@ -1,5 +1,8 @@
 <?php
 require("./functions.php");
+require("../vendor/autoload.php");
+use Hashids\Hashids;
+session_start();
 $uid_check = new UidClass($_GET['uid']);
 $uid_check->redirect();
 ?>
@@ -9,13 +12,15 @@ $uid_check->redirect();
     <title>第68回2023芝生祭投票ページ</title>
 </head>
 <body>
+<?php var_dump($uid_check->get_id()) ?>
+<?php var_dump($_SESSION) ?>
     <p>id:<?php echo(htmlspecialchars($uid_check->uid)); ?></p>
-    <form target="insert.php" method="POST">
+    <form action="vote.php" method="POST">
         <h2>最も面白いと思った企画を選択してください。</h2>
-        <select name="best-exhibition">
+        <select name="best_exhibition">
             <option value="1">企画1</option>
         </select>
-        <select name="best-poster">
+        <select name="best_poster">
             <option value="1">企画1</option>
             <option value="2" style="display: none;">企画2(画像なし)</option>
             <!--PHPでconfig/exhibition.csvからoptionを生成-->

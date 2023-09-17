@@ -23,6 +23,16 @@ class DBControlClass
 
     public function __construct()
     {
+        $this->dbset();
+        $this->connect();
+    }
+
+    public function __destruct()
+    {
+        $this->dsn = null;
+    }
+
+    private function dbset(){
         require '../vendor/autoload.php';
         \Dotenv\Dotenv::createImmutable(__DIR__)->load();
         \Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
@@ -30,13 +40,6 @@ class DBControlClass
         $this->dsn = "mysql:dbname=" . $_ENV['DB_NAME'] . ";host=" . $_ENV['DB_HOST'] . ";charset=utf8mb4";
         $this->db_user = $_ENV['DB_USER'];
         $this->db_password = $_ENV['DB_PASSWORD'];
-
-        $this->connect();
-    }
-
-    public function __destruct()
-    {
-        $this->dsn = null;
     }
 
     private function connect()
@@ -59,6 +62,15 @@ class DBControlClass
 
     public function init_table(int $num = 15000)
     {
+        if (empty($this->dbh))
+        {
+            if (empty($this->dsn))
+            {
+                $this->dbset();
+            }
+            $this->connect();
+        }
+
         // create a table
         try {
             $this->dbh->query(self::CREATE_SQL);
@@ -91,6 +103,15 @@ class DBControlClass
 
     public function count_row()
     {
+        if (empty($this->dbh))
+        {
+            if (empty($this->dsn))
+            {
+                $this->dbset();
+            }
+            $this->connect();
+        }
+        /*
         try {
             $res = $this->dbh->query("SELECT * FROM vote;");
             return $res->rowCount();
@@ -98,12 +119,23 @@ class DBControlClass
             return $e->getMessage();
             die();
         }
+         */
+        return 15000;
     }
 
     public function select(int $id)
     {
+        if (empty($this->dbh))
+        {
+            if (empty($this->dsn))
+            {
+                $this->dbset();
+            }
+            $this->connect();
+        }
         $stmt = $this->dbh->prepare("SELECT * FROM vote WHERE id = ?");
-        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        $stmt->bindValue(1, $id, PDO::PARAM_INT);
+        $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
@@ -111,9 +143,25 @@ class DBControlClass
 
     public function update(int $id, int $voted_times, int $best_exhibition = -1, int $best_poster = -1, string $email = "", string $impression = "")
     {
+        if (empty($this->dbh))
+        {
+            if (empty($this->dsn))
+            {
+                $this->dbset();
+            }
+            $this->connect();
+        }
         try {
             $stmt = $this->dbh->prepare("UPDATE vote SET voted_times = :voted_times, best_exhibition = :best_exhibition, best_poster = :best_poster, email = :email, impression = :impression WHERE id = :id;");
             $stmt->execute(array(
+                ":voted_times" => $voted_times,
+                ":best_exhibition" => $best_exhibition,
+                ":best_poster" => $best_poster,
+                ":email" => $email,
+                ":impression" => $impression,
+                ":id" => $id
+            ));
+            var_dump(array(
                 ":voted_times" => $voted_times,
                 ":best_exhibition" => $best_exhibition,
                 ":best_poster" => $best_poster,
@@ -137,23 +185,24 @@ class UidClass extends DBControlClass
 
     public function __construct($uid)
     {
+        require '../vendor/autoload.php';
+        \Dotenv\Dotenv::createImmutable(__DIR__)->load();
+        \Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
+
         if (isset($uid)) {
             $this->uid = $uid;
-        }
-
-        if (session_status() == PHP_SESSION_DISABLED) {
-            session_start();
         }
     }
 
     public function redirect()
     {
+        if ($_SERVER['REQUEST_URI'] == "/vote/index.php") {
+            return 0;
+        }
         // uidなし
-        if (empty($this->uid)) {
-            if ($_SERVER['REQUEST_URI'] != "/vote/index.php") {
-                header("Location:/vote/index.php");
-                exit();
-            }
+        if (empty($this->uid) && isset($_SESSION['id'])) {
+            header("Location:/vote/index.php");
+            exit();
             return 0;
         }
 
@@ -176,8 +225,6 @@ class UidClass extends DBControlClass
             return 0;
         }
 
-        header("Location:/vote/vote.php");
-        exit();
         return 0;
     }
 
@@ -191,7 +238,7 @@ class UidClass extends DBControlClass
 
     private function uid_check(): bool
     {
-        if (empty($this->uid)) {
+        if (empty($this->uid) || $this->get_id()==null) {
             return false;
         }
 
@@ -201,9 +248,10 @@ class UidClass extends DBControlClass
         return false;
     }
 
-    private function get_voted_times()
+    //private function get_voted_times()
+    function get_voted_times()
     {
         $result = $this->select($this->get_id());
-        return $result["voted_times"];
+        return $result[0]['voted_times'];
     }
 }

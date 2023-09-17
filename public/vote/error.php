@@ -1,3 +1,6 @@
+<?php
+session_destroy();
+?>
 <html>
 <head>
     <meta charset="UTF-8">

@@ -1,5 +1,7 @@
 <?php
 require("./functions.php");
+require("../vendor/autoload.php");
+use Hashids\Hashids;
 $uid_check = new UidClass($_GET['uid']);
 $uid_check->redirect();
 ?>
@@ -11,7 +13,7 @@ $uid_check->redirect();
 <body>
     <p>ご来場時に配布されましたパンフレットをご用意ください。<br>以下に、パンフレットの裏表紙の二次元コード部分に記載されている英数字を入力してください。</p>
     <p>QRコードをカメラアプリ等で直接読み込んでいただくことで、入力を省くことも可能です。</p>
-    <form action="/vote/vote.php" method="GET">
+    <form action="/vote/voteform.php" method="GET">
         <label for="uid">パンフレット裏表紙に記載の英数字：</label>
         <input type="text" id="uid" name="uid">
         <input type="submit" value="OK">
