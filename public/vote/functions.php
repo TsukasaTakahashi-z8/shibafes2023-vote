@@ -1,4 +1,7 @@
 <?php
+namespace vote;
+
+use PDO;
 
 class DBControlClass
 {

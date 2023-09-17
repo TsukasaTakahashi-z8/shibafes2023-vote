@@ -1,0 +1,13 @@
+{
+    "autoload": {
+        "classmap": [
+            "public/vote/"
+        ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "10"
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    }
+}
