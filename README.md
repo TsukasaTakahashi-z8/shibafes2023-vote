@@ -10,6 +10,7 @@
 ## 説明
 
 - public/ 以下がWEBサーバー上に公開されます。
+- public/vote/.envにDB接続情報を記述してください。
 
 ## ToDo
 - [ ] CSS書く
@@ -17,9 +18,9 @@
     - [ ] vote.php, edit.php
 
 - [ ] DBControllClassを書く
-    - [ ] 環境変数設定
+    - [x] 環境変数設定
     - [ ] DBのテーブルcreate
-    - [ ] connectDB()
+    - [x] connectDB()
     - [ ] select
     - [ ] update
 
