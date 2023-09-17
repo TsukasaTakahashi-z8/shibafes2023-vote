@@ -102,7 +102,8 @@ class DBControlClass
 
     public function select(int $id)
     {
-        $stmt = $this->dbh->query("SELECT * FROM vote WHERE id = ?");
+        $stmt = $this->dbh->prepare("SELECT * FROM vote WHERE id = ?");
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
