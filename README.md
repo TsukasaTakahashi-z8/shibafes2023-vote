@@ -11,6 +11,7 @@
 
 - public/ 以下がWEBサーバー上に公開されます。
 - public/vote/.envに以下のようにDB接続情報を記述してください。
+
 | key         | value    |
 | ---         | ---      |
 | DB_NAME     | DB名     |
