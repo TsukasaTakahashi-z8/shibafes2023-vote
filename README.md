@@ -5,7 +5,6 @@
 ## 注意点
 
 - 内部のURLは、2023年9月29日〜2023年12月11日のみ有効です。
-- 使用する場合は、環境変数にDBの各種情報を入れる必要があります。
 
 ## 説明
 
@@ -18,6 +17,13 @@
 | DB_HOST     | host     |
 | DB_USER     | User名   |
 | DB_PASSWORD | password |
+
+- public/.envに、以下の情報を記述してください。MYIPは、db_operation.php等からDB制御する際に必要です。ハッシュソルトは、DBのIDをハッシュ化し、QRのUIDにするときに使ったものです。
+
+| key  | value          |
+| ---  | ---            |
+| MYIP | グローバルIP   |
+| SALT | ハッシュソルト |
 
 ## ToDo
 - [ ] CSS書く
