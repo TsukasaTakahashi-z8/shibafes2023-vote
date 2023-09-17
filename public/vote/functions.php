@@ -111,13 +111,14 @@ class DBControlClass
     public function update(int $id, int $voted_times, int $best_exhibition = -1, int $best_poster = -1, string $email = "", string $impression = "")
     {
         try {
-            $stmt = $this->dbh->prepare("UPDATE vote SET voted_times = :voted_times, best_exhibition = :best_exhibition, best_poster = :best_poster, email = :email, impression = :impression");
+            $stmt = $this->dbh->prepare("UPDATE vote SET voted_times = :voted_times, best_exhibition = :best_exhibition, best_poster = :best_poster, email = :email, impression = :impression WHERE id = :id;");
             $stmt->execute(array(
                 ":voted_times" => $voted_times,
                 ":best_exhibition" => $best_exhibition,
                 ":best_poster" => $best_poster,
                 ":email" => $email,
-                ":impression" => $impression
+                ":impression" => $impression,
+                ":id" => $id
             ));
             return "ご回答有り難うございます。回答内容は送信されました。";
         } catch (PDOException $e) {
