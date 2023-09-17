@@ -34,8 +34,8 @@
     - [x] 環境変数設定
     - [x] DBのテーブルcreate
     - [x] connectDB()
-    - [ ] select
-    - [ ] update
+    - [x] select
+    - [x] update
 
 - [ ] vote.phpを書く
     - [ ] CSVからの表示
@@ -45,7 +45,7 @@
     - [ ] 過去の回答の自動checked
 
 - [ ] 送信先phpファイルを書く
-    - [ ] POST受信からのDBControllClass
+    - [x] POST受信からのDBControllClass
     - [ ] 感謝ページ
 
 - [ ] 返信用メアド作成
