@@ -53,12 +53,6 @@ class DBControlClass
         return 0;
     }
 
-    public function init_db(){
-        )";
-        $this->dbh->query($sql);
-
-    }
-
     public function getRow()
     {
     }
