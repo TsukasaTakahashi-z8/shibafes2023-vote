@@ -13,7 +13,6 @@ class DBControlClass
     {
         require '../vendor/autoload.php';
         \Dotenv\Dotenv::createImmutable(__DIR__)->load();
-        var_dump($_ENV);
 
         $this->dsn = "mysql:dbname=" . $_ENV['DB_NAME'] . ";host=" . $_ENV['DB_HOST'] . ";charset=utf8";
         $this->db_user = $_ENV['DB_USER'];
