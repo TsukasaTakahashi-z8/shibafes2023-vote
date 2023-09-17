@@ -1,24 +1,47 @@
 <?php
 
+
 class DBControlClass
 {
-    public $nnn;
+    private $dsn;
+    private $db_user;
+    private $db_password;
+
+    private $dbh;
 
     public function __construct()
     {
+        require '../vendor/autoload.php';
+        \Dotenv\Dotenv::createImmutable(__DIR__)->load();
+        var_dump($_ENV);
+
+        $this->dsn = "mysql:dbname=" . $_ENV['DB_NAME'] . ";host=" . $_ENV['DB_HOST'] . ";charset=utf8";
+        $this->db_user = $_ENV['DB_USER'];
+        $this->db_password = $_ENV['DB_PASSWORD'];
+
         $this->connect();
     }
 
     public function connect()
     {
-        $dsn = "mysql:dbname=hoge;host=localhost;charset=utf8";
-        $user = "";
-        $password = "";
         $options = array(
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
         );
+
+        try {
+            $this->dbh = new PDO($this->dsn, $this->db_user, $this->db_password, $options);
+        } catch (PDOException $e) {
+            echo "DB接続エラー:". $e->getMessage();
+            exit();
+            return $e->getMessage();
+        }
+        return 0;
+    }
+
+    public function init_db(){
+
     }
 
     public function getRow()
