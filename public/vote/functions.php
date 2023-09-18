@@ -32,7 +32,8 @@ class DBControlClass
         $this->dsn = null;
     }
 
-    private function dbset(){
+    private function dbset()
+    {
         require '../vendor/autoload.php';
         \Dotenv\Dotenv::createImmutable(__DIR__)->load();
         \Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
@@ -62,10 +63,8 @@ class DBControlClass
 
     public function init_table(int $num = 15000)
     {
-        if (empty($this->dbh))
-        {
-            if (empty($this->dsn))
-            {
+        if (empty($this->dbh)) {
+            if (empty($this->dsn)) {
                 $this->dbset();
             }
             $this->connect();
@@ -103,10 +102,8 @@ class DBControlClass
 
     public function count_row()
     {
-        if (empty($this->dbh))
-        {
-            if (empty($this->dsn))
-            {
+        if (empty($this->dbh)) {
+            if (empty($this->dsn)) {
                 $this->dbset();
             }
             $this->connect();
@@ -125,10 +122,8 @@ class DBControlClass
 
     public function select(int $id)
     {
-        if (empty($this->dbh))
-        {
-            if (empty($this->dsn))
-            {
+        if (empty($this->dbh)) {
+            if (empty($this->dsn)) {
                 $this->dbset();
             }
             $this->connect();
@@ -143,10 +138,8 @@ class DBControlClass
 
     public function update(int $id, int $voted_times, int $best_exhibition = -1, int $best_poster = -1, string $email = "", string $impression = "")
     {
-        if (empty($this->dbh))
-        {
-            if (empty($this->dsn))
-            {
+        if (empty($this->dbh)) {
+            if (empty($this->dsn)) {
                 $this->dbset();
             }
             $this->connect();
@@ -161,6 +154,7 @@ class DBControlClass
                 ":impression" => $impression,
                 ":id" => $id
             ));
+            $_SESSION['voted_times'] += 1;
             return "ご回答有り難うございます。回答内容は送信されました。";
         } catch (PDOException $e) {
             return "エラー！:".$e->getMessage();
@@ -191,8 +185,9 @@ class UidClass extends DBControlClass
         if ($_SERVER['REQUEST_URI'] == "/vote/index.php") {
             return 0;
         }
+
         // uidなし
-        if (empty($this->uid) && isset($_SESSION['id'])) {
+        if (empty($this->uid)) {
             header("Location:/vote/index.php");
             exit();
             return 0;
@@ -212,7 +207,10 @@ class UidClass extends DBControlClass
 
         // 複数回目
         if ($voted_times != 0) {
-            header("Location:/vote/edit.php");
+            if ($_SERVER['REQUEST_URI'] == "/vote/edit.php?uid={$this->uid}") {
+                return 0;
+            }
+            header("Location:/vote/edit.php?uid={$this->uid}");
             exit();
             return 0;
         }
@@ -230,7 +228,7 @@ class UidClass extends DBControlClass
 
     private function uid_check(): bool
     {
-        if (empty($this->uid) || $this->get_id()==null) {
+        if (empty($this->uid) || $this->get_id() == null) {
             return false;
         }
 
@@ -241,7 +239,7 @@ class UidClass extends DBControlClass
     }
 
     //private function get_voted_times()
-    function get_voted_times()
+    public function get_voted_times()
     {
         $result = $this->select($this->get_id());
         return $result[0]['voted_times'];
