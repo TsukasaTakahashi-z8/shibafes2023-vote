@@ -1,7 +1,5 @@
 # 芝生祭企画WEB投票システム
 
-**Under development.**
-
 ## 注意点
 
 - 内部のURLは、2023年9月29日〜2023年12月11日のみ有効です。
@@ -28,33 +26,6 @@
 | SALT | ハッシュソルト |
 
 ## ToDo
-- [ ] CSS書く
-    - [x] 共通
-    - [x] vote.php
-    - [ ] edit.php
-
-- [x] DBControllClassを書く
-    - [x] 環境変数設定
-    - [x] DBのテーブルcreate
-    - [x] connectDB()
-    - [x] select
-    - [x] update
-
-- [x] voteform.phpを書く
-    - [x] CSVからの表示
-    - [x] CSVからの表示(画像)
-
-- [x] edit.phpを書く
-    - [x] CSVからの表示
-    - [x] 過去の回答の自動checked
-
-- [x] 送信先phpファイルを書く
-    - [x] POST受信からのDBControllClass
-    - [x] 感謝ページ
-
-- [ ] 返信用メアド作成
 
 - [ ] Unitテスト書く
-    - [ ] UidClass
-    - [ ] DBControllClass
-    - [ ] 他手動テスト用
+- [ ] DB出力機能の追加(?)
