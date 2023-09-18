@@ -39,11 +39,11 @@
 
 - [x] voteform.phpを書く
     - [x] CSVからの表示
-    - [ ] CSVからの表示(画像)
+    - [x] CSVからの表示(画像)
 
-- [ ] edit.phpを書く
-    - [ ] CSVからの表示
-    - [ ] 過去の回答の自動checked
+- [x] edit.phpを書く
+    - [x] CSVからの表示
+    - [x] 過去の回答の自動checked
 
 - [ ] 送信先phpファイルを書く
     - [x] POST受信からのDBControllClass
