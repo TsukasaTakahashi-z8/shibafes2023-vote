@@ -161,14 +161,6 @@ class DBControlClass
                 ":impression" => $impression,
                 ":id" => $id
             ));
-            var_dump(array(
-                ":voted_times" => $voted_times,
-                ":best_exhibition" => $best_exhibition,
-                ":best_poster" => $best_poster,
-                ":email" => $email,
-                ":impression" => $impression,
-                ":id" => $id
-            ));
             return "ご回答有り難うございます。回答内容は送信されました。";
         } catch (PDOException $e) {
             return "エラー！:".$e->getMessage();
