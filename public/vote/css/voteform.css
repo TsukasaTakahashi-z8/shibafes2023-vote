@@ -1,0 +1,106 @@
+body {
+    background-color: #EFEFEF;
+    color: #424242;
+}
+main {
+    padding: 40px;
+}
+#best , #impression_area {
+    border-radius: 10px;
+    background-color: #EFEFEF;
+    padding: 10px 20px 10px 20px;
+    box-shadow: 2px 4px 8px rgb(0 0 0 / 32%);
+}
+
+#best_exhibition_area {
+    margin: 40px 20px 40px 20px;
+    padding: 0;
+    text-align: center;
+}
+
+#best_exhibition_area select{
+    padding: 20px;
+    font-size: 18px;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-weight: 500;
+    background-color: transparent;
+    box-shadow: 4px 4px 8px rgb(0 0 0 / 18%);
+    border: 3px solid #2F89FC;
+    border-radius: 6px;
+}
+
+#best_exhibition_area select option{
+    background-color: #F5F5F5;
+    box-shadow: 4px 4px 8px rgb(0 0 0 / 18%);
+}
+
+#best_poster_area {
+    margin: 40px 20px 40px 20px;
+    font-size: 0;
+}
+
+#best_poster_area label {
+    height: max-content;
+    margin: 20px 0 20px 2.5%;
+}
+
+img {
+    width: 30%;
+    margin: 20px 0 20px 0;
+    display: inline-block;
+    border: 1% solid transparent;
+    box-shadow: 2px 4px 6px rgb(0 0 0 / 40%);
+}
+
+input[type=radio] {
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+
+input[type=radio]:checked + label img{
+    border: 6px solid #f1404b;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 0px rgb(0 0 0 / 40%);
+}
+
+#impression_area {
+    margin-top: 40px;
+}
+
+#impression_area input, #impression_area textarea{
+    padding: 10px;
+    font-size: 18px;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-weight: 500;
+    background-color: #F5F5F5;
+    border: 2px solid #2F89FC;
+}
+
+#impression_area textarea {
+    margin: auto;
+    height: 200px;
+    width: 100%;
+}
+
+#submit_box {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+input[type=submit] {
+    width: 180px;
+    height: fit-content;
+    padding: 10px;
+    margin: 30px 0 40px auto;
+    color: #F5F5F5;
+    font-size: 24px;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-weight: 500;
+    background-color: #2F89FC;
+    border: 0;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 2px 4px 6px rgb(0 0 0 / 40%);
+}
