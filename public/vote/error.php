@@ -13,7 +13,7 @@ session_destroy();
 <body>
 <main>
     <h1>投票エラー</h1>
-    <p>投票中にエラーが発生しました。<br>
+    <p>投票中にエラーが発生しました。<br>お手数をおかけしますが、もう一度投票し直してください。<br>
     <?php
         switch($_GET['code']){
         case "invalid_uid":
