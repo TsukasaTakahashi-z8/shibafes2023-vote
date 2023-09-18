@@ -9,6 +9,8 @@
 ## 説明
 
 - public/ 以下がWEBサーバー上に公開されます。
+- public/vote/img/favicon.ico にファビコンを設定してください。
+- public/vote/img/下に{企画id}.{png, gmp等}の企画ポスターを保存してください。
 - public/vote/.envに以下のようにDB接続情報を記述してください。
 
 | key         | value    |
@@ -27,8 +29,9 @@
 
 ## ToDo
 - [ ] CSS書く
-    - [ ] 共通
-    - [ ] vote.php, edit.php
+    - [x] 共通
+    - [x] vote.php
+    - [ ] edit.php
 
 - [x] DBControllClassを書く
     - [x] 環境変数設定
@@ -45,7 +48,7 @@
     - [x] CSVからの表示
     - [x] 過去の回答の自動checked
 
-- [ ] 送信先phpファイルを書く
+- [x] 送信先phpファイルを書く
     - [x] POST受信からのDBControllClass
     - [x] 感謝ページ
 
