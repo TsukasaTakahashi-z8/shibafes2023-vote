@@ -202,7 +202,7 @@ class UidClass extends DBControlClass
 
         //sessionにset
         $voted_times = $this->get_voted_times();
-        $_SESSION['voted-times'] = $voted_times;
+        $_SESSION['voted_times'] = $voted_times;
         $_SESSION['id'] = $this->get_id();
 
         // 複数回目
