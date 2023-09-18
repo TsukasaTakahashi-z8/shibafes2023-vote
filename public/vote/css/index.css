@@ -1,0 +1,86 @@
+/*
+white #F5F5F5
+mint #30E3CA
+blue #2F89FC
+greenblack #40514E
+*/
+
+html {
+    background-color: #F5F5F5;
+}
+body {
+    background: linear-gradient(135deg, #30E3CA, #2F89FC, #30E3CA);
+    background-size: 200% 200%;
+    animation: bggradient 20s ease infinite;
+
+    color: #40514E;
+    position: relative;
+}
+
+@keyframes bggradient{
+    0% {
+        background-position: 0% 50%;
+    }
+    25% {
+        background-position: 100% 100%;
+    }
+    50% {
+        background-position: 50% 0%;
+    }
+    75% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+main {
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    padding: 80px;
+    background-color: rgba(245, 245, 245, 0.9);
+    border-radius: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+form {
+    margin: 60px;
+    text-align: center;
+}
+
+#uid {
+    padding: 10px;
+    border: 0px solid #2F89FC;
+    border-radius: 5px;
+    background-color: #F5F5F5;
+    box-shadow: 4px 4px 8px rgb(0 0 0 / 18%);
+    font-size: large;
+}
+
+#submit {
+    width: 80px;
+    padding: 10px;
+    margin-left: 10px;
+    color: #40514E;
+    cursor: pointer;
+    background-color: #F5F5F5;
+    border: 0px solid #F5F5F5;
+    border-radius: 6px;
+    box-shadow: 4px 4px 8px rgb(0 0 0 / 18%);
+    font-size: large;
+}
+
+@media screen and (max-width:480px) {
+    h1 {
+        font-size: 64px;
+    }
+    p {
+        font-size: 28px;
+    }
+    label {
+        font-size: 240px;
+    }
+
+}
