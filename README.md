@@ -78,6 +78,23 @@ mysql> describe exhibition;
 +-----------+---------------+------+-----+---------+----------------+
 ```
 
+## 動作確認
+- Debian12
+    - Vivaldi 6.1.3035.302 (Stable channel) stable (64-bit) 
+
+- Windows11
+    - Google Chrome 116.0.5845.188 (Official Build) (64bit)
+    - Vivaldi 6.1.3035.302 (Stable channel) stable (64-bit) 
+
+- iOS17.0
+    - Safari 16.6
+
+- iOS15.5
+    - Safari 15.5
+
+- iPadOS16
+    - Safari 16.3
+
 ## ToDo
 
 - [ ] Unitテスト書く
