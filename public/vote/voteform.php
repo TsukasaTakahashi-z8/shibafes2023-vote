@@ -7,13 +7,28 @@ $uid_check = new UidClass($_GET['uid']);
 $uid_check->redirect();
 
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <title>第68回2023芝生祭投票ページ</title>
     <link href="./img/favicon.ico" rel="icon" />
     <link href="./css/common.css" rel="stylesheet" />
     <link href="./css/voteform.css" rel="stylesheet" />
+    <script>
+    window.onload = function(){
+        let email = document.getElementsByName("email")[0];
+        let impression = document.getElementsByName("impression")[0];
+
+        email.value = localStorage['email'];
+        impression.value = localStorage['impression'];
+
+        window.addEventListener("keyup", function(e){
+            localStorage['email']= email.value;
+            localStorage['impression'] = impression.value;
+        });
+    }
+    </script>
 </head>
 <body>
     <main>
