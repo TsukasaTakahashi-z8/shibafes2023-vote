@@ -25,6 +25,59 @@
 | MYIP | グローバルIP   |
 | SALT | ハッシュソルト |
 
+## DB構成
+
+以下の2テーブルで構成されます。
+
+- vote
+- exhibition
+
+### vote
+
+| column          | 説明                                |
+| ---             | ---                                 |
+| id              | ユーザid                            |
+| votedtimes      | 累計投票、投票内容編集回数          |
+| best_exhibition | 最も良いと選択した企画id            |
+| best_poster     | 最も良いと選択したポスターの企画id  |
+| email           | 返信用email。(任意)                 |
+| impression      | 感想欄                              |
+
+```bash
+mysql> describe vote;
++-----------------+------------+------+-----+---------+----------------+
+| Field           | Type       | Null | Key | Default | Extra          |
++-----------------+------------+------+-----+---------+----------------+
+| id              | int        | NO   | PRI | NULL    | auto_increment |
+| voted_times     | int        | YES  |     | 0       |                |
+| best_exhibition | int        | YES  |     | NULL    |                |
+| best_poster     | int        | YES  |     | NULL    |                |
+| email           | text       | YES  |     | NULL    |                |
+| impression      | mediumtext | YES  |     | NULL    |                |
++-----------------+------------+------+-----+---------+----------------+
+```
+
+### exhibition
+
+| column    | 説明 |
+| ---       | ---  |
+| id        | 各企画に割り当てられるid |
+| category  | 集計時に使用される企画の分類(ステージ or 展示 or 体験) ここでは特に使用していません。 |
+| title     | 企画名 |
+| club_name | 出展団体名 |
+
+```bash
+mysql> describe exhibition;
++-----------+---------------+------+-----+---------+----------------+
+| Field     | Type          | Null | Key | Default | Extra          |
++-----------+---------------+------+-----+---------+----------------+
+| id        | int           | NO   | PRI | NULL    | auto_increment |
+| category  | varchar(10)   | NO   |     | NULL    |                |
+| title     | varchar(1023) | NO   |     | NULL    |                |
+| club_name | varchar(1023) | NO   |     | NULL    |                |
++-----------+---------------+------+-----+---------+----------------+
+```
+
 ## ToDo
 
 - [ ] Unitテスト書く
