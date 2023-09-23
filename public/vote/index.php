@@ -12,6 +12,7 @@ $uid_check->redirect();
     <link href="./img/favicon.ico" rel="icon" />
     <link href="./css/common.css" rel="stylesheet" />
     <link href="./css/index.css" rel="stylesheet" />
+    <link href="./css/voteform.css" rel="stylesheet" />
 </head>
 <body>
     <main>
