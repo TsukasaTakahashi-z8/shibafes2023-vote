@@ -4,6 +4,13 @@ class DBControlClass
 {
     /*
         CREATE DATABASE {dbname} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+        CREATE TABLE IF NOT EXISTS exhibition (
+            id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+            category VARCHAR(10) NOT NULL,
+            title VARCHAR(1023) NOT NULL,
+            club_name VARCHAR(1023) NOT NULL
+        );
      */
     private $dsn;
     private $db_user;
@@ -158,6 +165,16 @@ class DBControlClass
             return "ご回答有り難うございます。回答内容は送信されました。";
         } catch (PDOException $e) {
             return "エラー！:".$e->getMessage();
+            die();
+        }
+    }
+
+    public function get_exhibitions() {
+        try {
+            $res = $this->dbh->query("SELECT * FROM exhibition");
+            return $res->fetchAll();
+        } catch (PDOException $e) {
+            return $e->getMessage();
             die();
         }
     }

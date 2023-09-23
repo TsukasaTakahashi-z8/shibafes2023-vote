@@ -9,6 +9,7 @@ $uid_check->redirect();
 
 $db = new DBControlClass();
 $history = $db->select($_SESSION['id'])[0];
+$exhibition_list = $db->get_exhibitions();
 
 ?>
 <html>
@@ -25,42 +26,37 @@ $history = $db->select($_SESSION['id'])[0];
         <form action="vote.php" method="POST">
             <div id="best">
                 <h2>企画・ポスター投票</h2>
-                <h3>最も面白いと思った企画を1つ選択してください。</h3>
+                <h3>最も良い、面白いと思った企画を1つ選択してください。</h3>
                 <div id="best_exhibition_area">
                     <select name="best_exhibition" required>
                         <?php
-                            $f = fopen("./config/exhibition.csv", 'r');
-                            while ($line = fgetcsv($f)) {
-                                if ($line[0] == "企画id") {
-                                    continue;
-                                }
-                                if ($line[0] == $history['best_exhibition']) {
-                                    echo "            <option class=\"select_exhibition\" value=\"{$line[0]}\" selected>{$line[3]}（{$line[2]}）</option>";
+                            echo "            <option class=\"select_exhibition\"selected disable hidden>企画名（出展団体名）</option>";
+
+                            for($i=0; $i<count($exhibition_list); $i++){
+                                if ($exhibition_list[$i]['id'] == $history['best_exhibition']) {
+                                    echo "            <option class=\"select_exhibition\" value=\"{$exhibition_list[$i]['id']}\" selected>{$exhibition_list[$i]['title']}（{$exhibition_list[$i]['club_name']}）</option>";
                                 } else {
-                                    echo "            <option class=\"select_exhibition\" value=\"{$line[0]}\">{$line[3]}（{$line[2]}）</option>";
+                                    echo "            <option class=\"select_exhibition\" value=\"{$exhibition_list[$i]['id']}\">{$exhibition_list[$i]['title']}（{$exhibition_list[$i]['club_name']}）</option>";
                                 }
                             }
-                            fclose($f);
                         ?>
                     </select>
                 </div>
                 <h3>最も良いと思うポスターを1つ選択してください。</h3>
                 <div id="best_poster_area">
                     <?php
-                        $f = fopen("./config/exhibition.csv", 'r');
-                        while ($line = fgetcsv($f)) {
-                            $imgs = glob("./img/{$line[0]}.*");
-                            if ($line[0] != "企画id" && isset($imgs[0])) {
-                                if ($line[0] == $history['best_poster']) {
-                                    echo "        <input class=\"radio_poster\" id=\"poster_{$line[0]}\" type=\"radio\" name=\"best_poster\" value=\"{$line[0]}\" checked >";
-                                    echo "        <label for=\"poster_{$line[0]}\"><img class=\"poster\" src=\"{$imgs[0]}\"></label>";
+                        for($i=0; $i<count($exhibition_list); $i++){
+                            $imgs = glob("./img/{$exhibition_list[$i]['id']}.*");
+                            if (isset($imgs[0])) {
+                                if ($exhibition_list[$i]['id'] == $history['best_poster']) {
+                                    echo "        <input class=\"radio_poster\" id=\"poster_{$exhibition_list[$i]['id']}\" type=\"radio\" name=\"best_poster\" value=\"{$exhibition_list[$i]['id']}\" checked >";
+                                    echo "        <label for=\"poster_{$exhibition_list[$i]['id']}\"><img class=\"poster\" src=\"{$imgs[0]}\"></label>";
                                 } else {
-                                    echo "        <input class=\"radio_poster\" id=\"poster_{$line[0]}\" type=\"radio\" name=\"best_poster\" value=\"{$line[0]}\">";
-                                    echo "        <label for=\"poster_{$line[0]}\"><img class=\"poster\" src=\"{$imgs[0]}\"></label>";
+                                    echo "        <input class=\"radio_poster\" id=\"poster_{$exhibition_list[$i]['id']}\" type=\"radio\" name=\"best_poster\" value=\"{$exhibition_list[$i]['id']}\">";
+                                    echo "        <label for=\"poster_{$exhibition_list[$i]['id']}\"><img class=\"poster\" src=\"{$imgs[0]}\"></label>";
                                 }
                             }
                         }
-                        fclose($f);
                     ?>
                 </div>
             </div>
