@@ -41,9 +41,8 @@ class DBControlClass
 
     private function dbset()
     {
-        require '../vendor/autoload.php';
-        \Dotenv\Dotenv::createImmutable(__DIR__)->load();
-        \Dotenv\Dotenv::createImmutable(__DIR__.'/..')->load();
+        require $_SERVER['DOCUMENT_ROOT'].'/vendor/autoload.php';
+        \Dotenv\Dotenv::createImmutable($_SERVER['DOCUMENT_ROOT'])->load();
 
         $this->dsn = "mysql:dbname=" . $_ENV['DB_NAME'] . ";host=" . $_ENV['DB_HOST'] . ";charset=utf8mb4";
         $this->db_user = $_ENV['DB_USER'];
