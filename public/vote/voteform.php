@@ -24,10 +24,13 @@ $num_of_voted_exhibitions = 45;
     window.onload = function(){
         let email = document.getElementsByName("email")[0];
         let impression = document.getElementsByName("impression")[0];
-
-        email.value = localStorage['email'];
-        impression.value = localStorage['impression'];
-
+        
+        if (typeof localStorage['email'] != 'undefined') {
+            email.value = localStorage['email'];
+        }
+        if (typeof localStorage['impression'] != 'undefined') {
+            impression.value = localStorage['impression'];
+        }
         window.addEventListener("keyup", function(e){
             localStorage['email']= email.value;
             localStorage['impression'] = impression.value;
