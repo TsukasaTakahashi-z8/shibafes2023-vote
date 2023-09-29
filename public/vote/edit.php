@@ -11,6 +11,8 @@ $db = new DBControlClass();
 $history = $db->select($_SESSION['id'])[0];
 $exhibition_list = $db->get_exhibitions();
 
+$num_of_voted_exhibition = 45;
+
 ?>
 <html>
 <head>
@@ -32,7 +34,7 @@ $exhibition_list = $db->get_exhibitions();
                         <?php
                             echo "            <option class=\"select_exhibition\"selected disable hidden>企画名（出展団体名）</option>";
 
-                            for($i=0; $i<count($exhibition_list); $i++){
+                            for($i=0; $i<$num_of_voted_exhibition; $i++){
                                 if ($exhibition_list[$i]['id'] == $history['best_exhibition']) {
                                     echo "            <option class=\"select_exhibition\" value=\"{$exhibition_list[$i]['id']}\" selected>{$exhibition_list[$i]['title']}（{$exhibition_list[$i]['club_name']}）</option>";
                                 } else {
@@ -45,7 +47,7 @@ $exhibition_list = $db->get_exhibitions();
                 <h3>最も良いと思うポスターを1つ選択してください。</h3>
                 <div id="best_poster_area">
                     <?php
-                        for($i=0; $i<count($exhibition_list); $i++){
+                        for($i=0; $i<$num_of_voted_exhibition; $i++){
                             $imgs = glob("./img/{$exhibition_list[$i]['id']}.*");
                             if (isset($imgs[0])) {
                                 if ($exhibition_list[$i]['id'] == $history['best_poster']) {
